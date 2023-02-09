@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <CFBundleDisplayName>CefGlueDemoAvalonia</CFBundleDisplayName>
+    <CFBundleShortVersionString>DemoAvalonia</CFBundleShortVersionString>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="App.xaml" />
+    <AvaloniaResource Include="App.xaml" />
+    <None Remove="Themes\DarkTheme.xaml" />
+    <AvaloniaResource Include="Themes\DarkTheme.xaml" />
+    <None Remove="Themes\LightTheme.xaml" />
+    <AvaloniaResource Include="Themes\LightTheme.xaml" />
+    <None Remove="Themes\BaseTheme.xaml" />
+    <AvaloniaResource Include="Themes\BaseTheme.xaml" />
+    <None Remove="ServerPage\ServerPageTopLevelView.xaml" />
+    <None Remove="ControlTemplates\MenuItem.xaml" />
+    <AvaloniaResource Include="ControlTemplates\MenuItem.xaml" />
+    <None Remove="AggregatorWindow\AggregatorWindow.xaml" />
+    <AvaloniaResource Include="AggregatorWindow\AggregatorWindow.xaml" />
+    <None Remove="Aggregator\AggregatorView.xaml" />
+    <AvaloniaResource Include="Aggregator\AggregatorView.xaml" />
+  </ItemGroup>
+
+
+</Project>
