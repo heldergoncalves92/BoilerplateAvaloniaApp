@@ -8,7 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageVersion Include="Avalonia.Desktop" Version="0.10.999-cibuild0028716-beta" />
+        <PackageVersion Include="Avalonia.Desktop" Version="0.10.999-cibuild0036843-beta" />
+        <PackageVersion Include="CefGlue.Avalonia" Version="91.4472.31" />
     </ItemGroup>
 
 </Project>
