@@ -5,10 +5,12 @@
         <Product>BoilerplateAvaloniaApp</Product>
         <AssemblyTitle>BoilerplateAvaloniaApp</AssemblyTitle>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <AvaloniaVersion>11.0.6</AvaloniaVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageVersion Include="Avalonia.Desktop" Version="11.0.6" />
+        <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
     </ItemGroup>
 
 </Project>
