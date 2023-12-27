@@ -83,7 +83,7 @@ namespace ServiceStudio.WebViewImplementation {
                 isMouseInside = true;
                 ShowTooltipFor(tab, header, e);
             };
-            tab.PointerLeave += delegate { OnMouseLeft(); };
+            tab.PointerExited += delegate { OnMouseLeft(); };
             tab.Tapped += delegate { OnMouseLeft(); };
             tab.LostFocus += delegate { OnMouseLeft(); };
             tab.PointerPressed += OnPointerPressed;
