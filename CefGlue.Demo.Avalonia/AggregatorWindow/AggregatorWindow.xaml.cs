@@ -83,7 +83,7 @@ namespace ServiceStudio.WebViewImplementation {
                 isMouseInside = true;
                 ShowTooltipFor(tab, header, e);
             };
-            tab.PointerLeave += delegate { OnMouseLeft(); };
+            tab.PointerExited += delegate { OnMouseLeft(); };
             tab.Tapped += delegate { OnMouseLeft(); };
             tab.LostFocus += delegate { OnMouseLeft(); };
             tab.PointerPressed += OnPointerPressed;
@@ -99,14 +99,13 @@ namespace ServiceStudio.WebViewImplementation {
                 tabs.SelectedIndex = index - 1;
                 tabItemSelectedForDragDrop = null;
             }
-
-            var itemsList = (IList<object>)tabs.Items;
-            var currentTab = (TabItem)itemsList.ElementAt(index);
+            
+            var currentTab = (TabItem)tabs.Items.ElementAt(index);
             currentTab.Content = null;
             currentTab.DataContext = null;
             currentTab.Header = null;
-            itemsList.RemoveAt(index);
-
+            
+            tabs.Items.RemoveAt(index);
             TooltipServiceProvider.HideTooltip();
         }
 

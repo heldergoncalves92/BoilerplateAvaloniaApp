@@ -9,7 +9,7 @@ using Avalonia.VisualTree;
 
 namespace ServiceStudio.WebViewImplementation {
 
-    internal class TabItemsControl : Grid, IPanel {
+    internal class TabItemsControl : Grid {
 
         private class InnerTabItemsControl : StackPanel {
 
@@ -36,7 +36,7 @@ namespace ServiceStudio.WebViewImplementation {
             protected override Size MeasureOverride(Size availableSize) {
                 var childrenWithFixedSizeWidth = 0.0;
                 var height = 0.0;
-                var childrenWithVariableSize = new List<IControl>();
+                var childrenWithVariableSize = new List<Control>();
 
                 foreach (var child in Children) {
                     var tabHeaderInfo = (TabHeaderInfo)child.DataContext;
@@ -49,9 +49,9 @@ namespace ServiceStudio.WebViewImplementation {
                     }
                 }
 
-                var visualParent = this.GetVisualParent<IControl>();
+                var visualParent = this.GetVisualParent<Control>();
                 // Fetch ToggleButton witdh and/if others controls after this
-                var siblingsAfter = visualParent.VisualChildren.OfType<Layoutable>().SkipWhile(child => child != this).Skip(1).ToArray();
+                var siblingsAfter = visualParent.GetVisualChildren().OfType<Layoutable>().SkipWhile(child => child != this).Skip(1).ToArray();
                 var siblingsTotalWidth = 0.0;
                 foreach (var sibling in siblingsAfter) {
                     if(!sibling.IsMeasureValid) {
@@ -77,9 +77,9 @@ namespace ServiceStudio.WebViewImplementation {
             }
         }
 
-        private readonly IPanel tabItemsPanel = new InnerTabItemsControl();
+        private readonly Panel tabItemsPanel = new InnerTabItemsControl();
 
-        Controls IPanel.Children => tabItemsPanel.Children;
+        //Controls Panel.Children => tabItemsPanel.Children;
 
         public static readonly StyledProperty<int> TabItemsIndexProperty =
            AvaloniaProperty.Register<TabItemsControl, int>(nameof(TabItemsIndex));
