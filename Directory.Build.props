@@ -10,7 +10,9 @@
 
     <ItemGroup>
         <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
-        <PackageVersion Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="Avalonia.Themes.Simple" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="Avalonia.Controls.DataGrid" Version="$(AvaloniaVersion)" />
+        <PackageVersion Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
     </ItemGroup>
 
 </Project>

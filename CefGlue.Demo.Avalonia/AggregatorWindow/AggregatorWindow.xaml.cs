@@ -18,6 +18,8 @@ namespace ServiceStudio.WebViewImplementation {
 
         public AggregatorWindow() {
             AvaloniaXamlLoader.Load(this);
+            this.AttachDevTools(new KeyGesture(Key.F5));
+            
             tabs = this.FindControl<TabControl>("tabs");
         }
 

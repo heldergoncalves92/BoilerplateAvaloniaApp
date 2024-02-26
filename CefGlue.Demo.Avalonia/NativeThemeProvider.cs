@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using Avalonia;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using ServiceStudio.WebViewImplementation.Framework;
 using ServiceStudio.WebViewImplementation.Themes;
@@ -20,15 +21,7 @@ namespace ServiceStudio.WebViewImplementation {
         }
 
         private static void LoadTheme() {
-            Application.Current.Styles.Add(CreateTheme(Theme));
-        }
-
-        private static ITheme CreateTheme(ThemeName theme) {
-            return theme switch {
-                ThemeName.Dark  => new DarkTheme(),
-                ThemeName.Light => new LightTheme(),
-                _               => new LightTheme()
-            };
+            Application.Current.RequestedThemeVariant = Theme == ThemeName.Light ? ThemeVariant.Light : ThemeVariant.Dark;
         }
     }
 }

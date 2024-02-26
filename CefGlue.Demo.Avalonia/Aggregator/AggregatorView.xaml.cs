@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
@@ -10,6 +11,8 @@ namespace ServiceStudio.WebViewImplementation {
 
         public AggregatorView(TabHeaderInfo tabHeaderInfo) {
             AvaloniaXamlLoader.Load(this);
+            
+            
             var btn = this.FindControl<Button>("btn");
             btn.Click += BtnOnClick;
 

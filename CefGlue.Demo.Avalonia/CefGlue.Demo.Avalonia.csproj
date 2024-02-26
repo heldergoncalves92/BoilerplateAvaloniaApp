@@ -11,27 +11,25 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="Avalonia.Diagnostics" />
     <PackageReference Include="Avalonia.Desktop" />
-    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="Avalonia.Themes.Simple" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="System.Reactive" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="App.xaml" />
     <AvaloniaResource Include="App.xaml" />
-    <None Remove="Themes\DarkTheme.xaml" />
-    <AvaloniaResource Include="Themes\DarkTheme.xaml" />
-    <None Remove="Themes\LightTheme.xaml" />
-    <AvaloniaResource Include="Themes\LightTheme.xaml" />
-    <None Remove="Themes\BaseTheme.xaml" />
-    <AvaloniaResource Include="Themes\BaseTheme.xaml" />
     <None Remove="ServerPage\ServerPageTopLevelView.xaml" />
-    <None Remove="ControlTemplates\MenuItem.xaml" />
-    <AvaloniaResource Include="ControlTemplates\MenuItem.xaml" />
     <None Remove="AggregatorWindow\AggregatorWindow.xaml" />
     <AvaloniaResource Include="AggregatorWindow\AggregatorWindow.xaml" />
     <None Remove="Aggregator\AggregatorView.xaml" />
     <AvaloniaResource Include="Aggregator\AggregatorView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ControlTemplates\" />
   </ItemGroup>
 
 
