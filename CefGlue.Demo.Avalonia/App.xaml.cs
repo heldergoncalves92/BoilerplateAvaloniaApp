@@ -1,11 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Linq;
+using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Platform;
 using ServiceStudio.View;
 
 namespace ServiceStudio.WebViewImplementation {

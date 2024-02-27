@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using System;
+using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
@@ -26,6 +28,7 @@ namespace ServiceStudio.WebViewImplementation {
 
         private void BtnStandaloneOnClick(object sender, RoutedEventArgs e)
         {
+            Task.Run(() => throw new Exception("User Forced Exception inside Task"));
             var w = new Window { Width = 200, Height = 200 };
             w.ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
             w.WindowStartupLocation = WindowStartupLocation.CenterScreen;

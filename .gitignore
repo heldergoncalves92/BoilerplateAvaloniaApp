@@ -3,3 +3,7 @@
 
 CefGlue.Demo.Avalonia/bin/
 CefGlue.Demo.Avalonia/obj/
+.DS_Store
+/Build
+/CrashHandler/bin
+/CrashHandler/obj

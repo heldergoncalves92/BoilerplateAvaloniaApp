@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <OutputPath>..\Build\$(Configuration)</OutputPath>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   
@@ -30,6 +31,10 @@
     <AvaloniaResource Include="AggregatorWindow\AggregatorWindow.xaml" />
     <None Remove="Aggregator\AggregatorView.xaml" />
     <AvaloniaResource Include="Aggregator\AggregatorView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Update="Avalonia.Desktop" Version="0.10.22" />    
   </ItemGroup>
 
 

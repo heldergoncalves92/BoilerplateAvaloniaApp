@@ -1,4 +1,7 @@
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
@@ -15,7 +18,27 @@ namespace ServiceStudio {
             return Start(args);
         }
 
-        private static int Start(string[] args) {
+        private static int Start(string[] args)
+        {
+            // Environment.SetEnvironmentVariable("DOTNET_DbgEnableMiniDump", "1");
+            // Environment.SetEnvironmentVariable("DOTNET_DbgMiniDumpType", "1");
+            Console.WriteLine($"DOTNET_DbgEnableMiniDump: {Environment.GetEnvironmentVariable("DOTNET_DbgEnableMiniDump")}");
+            Console.WriteLine($"DOTNET_DbgMiniDumpType: {Environment.GetEnvironmentVariable("DOTNET_DbgMiniDumpType")}");
+            
+                
+            //Environment.SetEnvironmentVariable("DOTNET_DbgMiniDumpName", "/var/folders/x4/k88wdsms0hb21kjj633d5cnh0000gp/T/Batatas");
+            
+            //Environment.SetEnvironmentVariable("COMPlus_DbgEnableMiniDump", "1");
+            //Environment.SetEnvironmentVariable("COMPlus_DbgMiniDumpType", "1");
+            Console.WriteLine($"COMPlus_DbgEnableMiniDump: {Environment.GetEnvironmentVariable("COMPlus_DbgEnableMiniDump")}");
+            Console.WriteLine($"COMPlus_DbgMiniDumpType: {Environment.GetEnvironmentVariable("COMPlus_DbgMiniDumpType")}");
+
+
+            LaunchCrashHandlerProcess();
+            var t = Task.Run(async () => await Task.Delay(1000));
+            t.Wait();
+            
+            
             var mainThread = Thread.CurrentThread;
             var appBuilder = new Lazy<AppBuilder>(() => BuildApp(mainThread));
 
@@ -26,7 +49,8 @@ namespace ServiceStudio {
             if (!RunApplication(appBuilder)) {
                 return 0; // view not started (probably an headless session), exit
             }
-
+            throw new Exception("User Forced Exception inside Task");
+            //crashHandlerInputWriter.WriteLine("OK");
             return GetAppLifetime().Start(args);
         }
 
@@ -66,6 +90,44 @@ namespace ServiceStudio {
                 .SetupWithLifetime(new AppLifetime() {
                     ShutdownMode = ShutdownMode.OnLastWindowClose,
                 });
+        }
+
+        private static StreamWriter crashHandlerInputWriter;
+        
+        protected static void LaunchCrashHandlerProcess() {
+            try {
+                var currentProcess = Process.GetCurrentProcess();
+                var currentProcessPath = Path.GetDirectoryName(currentProcess.MainModule.FileName);
+                var processName = "CrashHandler" + (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "" : ".exe");
+                var crashHandlerPath = Path.Combine(currentProcessPath, processName);
+                
+                if (!File.Exists(crashHandlerPath)) {
+                    return;
+                }
+                
+                var filestream = new FileStream("out.txt", FileMode.Create);
+                var streamwriter = new StreamWriter(filestream);
+                streamwriter.AutoFlush = true;
+                
+                
+                Console.SetOut(streamwriter);
+                Console.SetError(streamwriter);
+
+                const int RelaunchServiceStudioDelayIsMs = 1500; // try to avoid conflicts with auto-update
+                var processLaunchArguments = $"{currentProcess.Id} {RelaunchServiceStudioDelayIsMs}";
+                var crashHandlerProcessStartInfo = new ProcessStartInfo {
+                    FileName = crashHandlerPath,
+                    Arguments = processLaunchArguments,
+                    UseShellExecute = false,
+                    RedirectStandardInput = true
+                };
+                
+                
+
+                crashHandlerInputWriter = Process.Start(crashHandlerProcessStartInfo).StandardInput;
+            } catch {
+                Console.WriteLine("CrashHandler process could not be launched");
+            }
         }
     }
 }
