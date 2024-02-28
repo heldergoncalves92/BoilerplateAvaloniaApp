@@ -52,7 +52,7 @@ public class Program {
             if (read != OnGracefulExitMessage) {
                 Console.WriteLine($"CrashHandler :: NOT Graceful Exit Detected!! '{read}'");
                 //expected termination message was not received, abrupt exit, lets restart
-                var delay = 5000;//(int)parsedValues[1];
+                var delay = (int)parsedValues[1];
                 if (delay > 0) {
                     Thread.Sleep(delay);
                 }

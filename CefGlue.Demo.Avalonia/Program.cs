@@ -22,16 +22,17 @@ namespace ServiceStudio {
         {
             // Environment.SetEnvironmentVariable("DOTNET_DbgEnableMiniDump", "1");
             // Environment.SetEnvironmentVariable("DOTNET_DbgMiniDumpType", "1");
+            // Environment.SetEnvironmentVariable("DOTNET_DbgMiniDumpName", "./os-core-dump");
             Console.WriteLine($"DOTNET_DbgEnableMiniDump: {Environment.GetEnvironmentVariable("DOTNET_DbgEnableMiniDump")}");
             Console.WriteLine($"DOTNET_DbgMiniDumpType: {Environment.GetEnvironmentVariable("DOTNET_DbgMiniDumpType")}");
+            Console.WriteLine($"DOTNET_DbgMiniDumpName: {Environment.GetEnvironmentVariable("DOTNET_DbgMiniDumpName")}");
             
-                
-            //Environment.SetEnvironmentVariable("DOTNET_DbgMiniDumpName", "/var/folders/x4/k88wdsms0hb21kjj633d5cnh0000gp/T/Batatas");
-            
-            //Environment.SetEnvironmentVariable("COMPlus_DbgEnableMiniDump", "1");
-            //Environment.SetEnvironmentVariable("COMPlus_DbgMiniDumpType", "1");
+            // Environment.SetEnvironmentVariable("COMPlus_DbgMiniDumpName", "./os-core-dump");
+            // Environment.SetEnvironmentVariable("COMPlus_DbgEnableMiniDump", "1");
+            // Environment.SetEnvironmentVariable("COMPlus_DbgMiniDumpType", "1");
             Console.WriteLine($"COMPlus_DbgEnableMiniDump: {Environment.GetEnvironmentVariable("COMPlus_DbgEnableMiniDump")}");
             Console.WriteLine($"COMPlus_DbgMiniDumpType: {Environment.GetEnvironmentVariable("COMPlus_DbgMiniDumpType")}");
+            Console.WriteLine($"COMPlus_DbgMiniDumpName: {Environment.GetEnvironmentVariable("COMPlus_DbgMiniDumpName")}");
 
 
             LaunchCrashHandlerProcess();
@@ -104,14 +105,6 @@ namespace ServiceStudio {
                 if (!File.Exists(crashHandlerPath)) {
                     return;
                 }
-                
-                var filestream = new FileStream("out.txt", FileMode.Create);
-                var streamwriter = new StreamWriter(filestream);
-                streamwriter.AutoFlush = true;
-                
-                
-                Console.SetOut(streamwriter);
-                Console.SetError(streamwriter);
 
                 const int RelaunchServiceStudioDelayIsMs = 1500; // try to avoid conflicts with auto-update
                 var processLaunchArguments = $"{currentProcess.Id} {RelaunchServiceStudioDelayIsMs}";
