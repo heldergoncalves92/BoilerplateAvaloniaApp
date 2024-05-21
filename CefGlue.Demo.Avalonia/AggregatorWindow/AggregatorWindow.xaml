@@ -7,6 +7,9 @@
     MinHeight="600"
     Title="ODC Studio">
     
+    <NativeMenu.Menu>
+        <NativeMenu />
+    </NativeMenu.Menu>
 
     <Grid>
         <Grid.DataTemplates>
