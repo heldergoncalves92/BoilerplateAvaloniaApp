@@ -119,19 +119,19 @@ namespace ServiceStudio.WebViewImplementation {
             tabs.SelectedIndex = GetTabIndex(((TabItem)sender).Content as ITopLevelView);
         }
 
-        protected override void OnLoaded(RoutedEventArgs e) {
-            base.OnLoaded(e);
-            
+        protected override void OnOpened(EventArgs e) {
             var nativeMenu = NativeMenu.GetMenu(this);
             var menuItem = new NativeMenuItem("AmazingNativeMenu");
             var menu = new NativeMenu();
             menu.NeedsUpdate += (_, __) => Console.WriteLine("Menu Needs To Update");
             
             var item = new NativeMenuItem();
-            item.Click += (_, __) => Console.WriteLine("OnMenuItemClick");
+            item.Click += (a, b) => {
+                Console.WriteLine("OnMenuItemClick");
+            };
             item.Header = "Delete Amazing Action";
             item.IsEnabled = true;
-            item.Gesture = KeyGesture.Parse("Tab");
+            item.Gesture = KeyGesture.Parse("Delete");
             menu.Items.Add(item);
             
             menuItem.Menu = menu;
