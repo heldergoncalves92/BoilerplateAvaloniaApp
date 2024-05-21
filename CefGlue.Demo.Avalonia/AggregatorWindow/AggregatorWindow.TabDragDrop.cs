@@ -7,6 +7,7 @@ using Avalonia.Input;
 using ServiceStudio.WebViewImplementation.Framework;
 using Avalonia.Controls.Shapes;
 using Avalonia.Layout;
+using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -184,13 +185,13 @@ namespace ServiceStudio.WebViewImplementation
                 // That allows the RemoveTab that was pushed to run async to run at the CreateWindow phase and will set tabItemSelectedForDragDrop as null
                 // Didn't fix changing the order because that could lead to breaking this in the future if we forgot the order matters and the savedDockPanel won't be needed as the tab was closed
                 // To be followed by RDOIAT-602
-                savedDockPanel = (DockPanel)((IStyledElement)tabItemSelectedForDragDrop)?.LogicalChildren.FirstOrDefault(c => c is DockPanel);
+                savedDockPanel = (DockPanel)tabItemSelectedForDragDrop?.GetLogicalChildren().FirstOrDefault(c => c is DockPanel);
             }
 
             lock (lockMove)
             {
                 isFirstMove = true;
-                this.PointerLeave += OnPointerLeave;
+                this.PointerExited += OnPointerLeave;
                 this.PointerCaptureLost += OnPointerCaptureLost;
                 this.PointerMoved += OnPointerMove;
                 this.PointerReleased += OnPointerReleased;
@@ -296,7 +297,7 @@ namespace ServiceStudio.WebViewImplementation
         private void EndTabMove(IPointer pointer)
         {
             // No longer subscribe to pointer events.
-            this.PointerLeave -= OnPointerLeave;
+            this.PointerExited -= OnPointerLeave;
             this.PointerCaptureLost -= OnPointerCaptureLost;
             this.PointerMoved -= OnPointerMove;
             this.PointerReleased -= OnPointerReleased;
@@ -458,7 +459,7 @@ namespace ServiceStudio.WebViewImplementation
                 IsHitTestVisible = false,
                 Background = Brushes.Transparent,
                 TransparencyBackgroundFallback = Brushes.Transparent,
-                TransparencyLevelHint = WindowTransparencyLevel.Transparent,
+                TransparencyLevelHint = new []{ WindowTransparencyLevel.Transparent },
                 CornerRadius = new CornerRadius(0),
                 ShowInTaskbar = false,
                 Topmost = true,

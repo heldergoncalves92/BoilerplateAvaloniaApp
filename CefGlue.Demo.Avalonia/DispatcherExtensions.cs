@@ -9,7 +9,7 @@ namespace ServiceStudio.WebViewImplementation.Framework {
 
         private static Action<Exception> unhandledExceptionHandler;
 
-        public static R ExecuteInUIThread<R>(this Dispatcher dispatcher, Func<R> func, DispatcherPriority priority = DispatcherPriority.Normal) {
+        public static R ExecuteInUIThread<R>(this Dispatcher dispatcher, Func<R> func, DispatcherPriority priority) {
             try {
                 if (dispatcher.CheckAccess()) {
                     return func();
@@ -21,14 +21,26 @@ namespace ServiceStudio.WebViewImplementation.Framework {
                 throw;
             }
         }
-
-        public static void ExecuteInUIThread(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DispatcherPriority.Normal) {
-            dispatcher.ExecuteInUIThread(() => { action(); return true; }, priority);
+        
+        public static R ExecuteInUIThread<R>(this Dispatcher dispatcher, Func<R> func) {
+            return dispatcher.ExecuteInUIThread(func, DispatcherPriority.Normal);
         }
 
-        public static void AsyncExecuteInUIThread(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DispatcherPriority.Normal) {
-            dispatcher.InvokeAsync(action, priority)
+        public static void ExecuteInUIThread(this Dispatcher dispatcher, Action action, DispatcherPriority priority) {
+            dispatcher.ExecuteInUIThread(() => { action(); return true; }, priority);
+        }
+        
+        public static void ExecuteInUIThread(this Dispatcher dispatcher, Action action) {
+            dispatcher.ExecuteInUIThread(() => { action(); return true; }, DispatcherPriority.Normal);
+        }
+
+        public static void AsyncExecuteInUIThread(this Dispatcher dispatcher, Action action, DispatcherPriority priority) {
+            dispatcher.InvokeAsync(action, priority).GetTask()
                 .ContinueWith(t => unhandledExceptionHandler?.Invoke(t.Exception), TaskContinuationOptions.OnlyOnFaulted);
+        }
+        
+        public static void AsyncExecuteInUIThread(this Dispatcher dispatcher, Action action) {
+            dispatcher.AsyncExecuteInUIThread(action, DispatcherPriority.Normal);
         }
         
         /// <summary>

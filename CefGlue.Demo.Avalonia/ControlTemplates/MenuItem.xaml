@@ -98,9 +98,7 @@
                                 <ScrollViewer Classes="menuscroller">
                                     <ItemsPresenter
                                         Name="PART_ItemsPresenter"
-                                        Items="{TemplateBinding Items}"
                                         ItemsPanel="{TemplateBinding ItemsPanel}"
-                                        ItemTemplate="{TemplateBinding ItemTemplate}"
                                         Grid.IsSharedSizeScope="True"
                                     />
                                 </ScrollViewer>

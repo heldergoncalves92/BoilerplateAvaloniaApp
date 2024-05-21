@@ -18,13 +18,13 @@ namespace ServiceStudio.WebViewImplementation.Framework.Tooltip {
         private class CustomTooltip {
             private readonly PopupWindow popup;
 
-            public CustomTooltip(IControl content) {
+            public CustomTooltip(Control content) {
                 popup = new PopupWindow { ShowActivated = false, Content = content };
                 popup.VerticalContentAlignment = VerticalAlignment.Center;
-                popup.PointerEnter += delegate { Hide(); };
+                popup.PointerEntered += delegate { Hide(); };
             }
 
-            public void Show(IControl target, Window parentWindow, double x, double y) {
+            public void Show(Control target, Window parentWindow, double x, double y) {
                 popup.ConfigurePosition(target, new Point(x, y), anchor: PopupAnchor.TopLeft, gravity: PopupGravity.BottomRight);
                 popup.Show(parentWindow);
             }

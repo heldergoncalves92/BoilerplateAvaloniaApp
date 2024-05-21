@@ -22,17 +22,17 @@ namespace ServiceStudio.WebViewImplementation.Framework {
             HorizontalContentAlignment = HorizontalAlignment.Left;
         }
 
-        public void ConfigurePosition(IVisual target, Point offset, PopupAnchor anchor = PopupAnchor.TopLeft, PopupGravity gravity = PopupGravity.BottomRight) {
+        public void ConfigurePosition(Visual target, Point offset, PopupAnchor anchor = PopupAnchor.TopLeft, PopupGravity gravity = PopupGravity.BottomRight) {
             var newParent = (Window)target.GetVisualRoot();
 
             if (newParent == null) {
                 return;
             }
 
-            if (parent != newParent) {
-                parent = newParent;
-                positioner = new ManagedPopupPositioner(new ManagedPopupPositionerPopupImplHelper(parent.PlatformImpl, MoveResizeDelegate));
-            }
+            // if (parent != newParent) {
+            //     parent = newParent;
+            //     positioner = new ManagedPopupPositioner(new ManagedPopupPositionerPopupImplHelper(parent.PlatformImpl, MoveResizeDelegate));
+            // }
 
             positionerParameters = GetNewPositionerParametersRelativeToOffset(target, offset, anchor, gravity);
 
@@ -41,7 +41,7 @@ namespace ServiceStudio.WebViewImplementation.Framework {
             }
         }
 
-        private PopupPositionerParameters GetNewPositionerParametersRelativeToOffset(IVisual target, Point offset, PopupAnchor anchor = PopupAnchor.TopLeft, PopupGravity gravity = PopupGravity.BottomRight) {
+        private PopupPositionerParameters GetNewPositionerParametersRelativeToOffset(Visual target, Point offset, PopupAnchor anchor = PopupAnchor.TopLeft, PopupGravity gravity = PopupGravity.BottomRight) {
             var matrix = target.TransformToVisual(parent);
             if (matrix.HasValue) {
                 var bounds = new Rect(default, target.Bounds.Size);
@@ -68,7 +68,7 @@ namespace ServiceStudio.WebViewImplementation.Framework {
         }
 
         private void UpdatePosition() {
-            positioner?.Update(positionerParameters);
+            //positioner?.Update(positionerParameters);
         }
 
         protected override Size ArrangeOverride(Size finalSize) {

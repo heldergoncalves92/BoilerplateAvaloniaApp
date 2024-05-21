@@ -60,10 +60,8 @@ namespace ServiceStudio {
             return AppBuilder
                 .Configure<App>()
                 .UsePlatformDetect()
-                .With(new Win32PlatformOptions {
-                    UseWindowsUIComposition = false
-                })
-                .SetupWithLifetime(new AppLifetime() {
+                .With(new Win32PlatformOptions())
+                .SetupWithLifetime(new AppLifetime {
                     ShutdownMode = ShutdownMode.OnLastWindowClose,
                 });
         }
