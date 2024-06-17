@@ -124,17 +124,26 @@ namespace ServiceStudio.WebViewImplementation {
             var menu = new NativeMenu();
             menu.NeedsUpdate += (_, __) => Console.WriteLine("Menu Needs To Update");
             
+            var item2 = new NativeMenuItem();
+            item2.Click += (a, b) => {
+                Console.WriteLine("OnMenuItemClick Delete");
+            };
+            item2.Header = "Delete Amazing Action";
+            item2.IsEnabled = true;
+            menu.Items.Add(item2);
+
             var item = new NativeMenuItem();
             item.Click += (a, b) => {
-                Console.WriteLine("OnMenuItemClick");
+                Console.WriteLine("OnMenuItemClick F4");
+                item2.Gesture = item2.Gesture == null ? KeyGesture.Parse("Delete") : null;
             };
-            item.Header = "Delete Amazing Action";
+            item.Header = "F4 Amazing Action";
             item.IsEnabled = true;
-            item.Gesture = KeyGesture.Parse("Delete");
+            item.Gesture = KeyGesture.Parse("F4");
             menu.Items.Add(item);
-            
+
             menuItem.Menu = menu;
             nativeMenu.Add(menuItem);
-        }
+       }
     }
 }
