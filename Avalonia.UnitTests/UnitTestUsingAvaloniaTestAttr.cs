@@ -4,7 +4,7 @@ using CefGlue.Demo.Avalonia;
 
 namespace Avalonia.UnitTests;
 
-public class Tests
+public class UnitTestUsingAvaloniaTestAttr
 {
     [SetUp]
     public void Setup() {
