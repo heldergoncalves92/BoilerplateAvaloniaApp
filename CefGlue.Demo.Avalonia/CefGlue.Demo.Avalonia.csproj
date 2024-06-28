@@ -3,17 +3,29 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>AnyCPU;ARM64</Platforms>
   </PropertyGroup>
   
   <PropertyGroup>
     <CFBundleDisplayName>CefGlueDemoAvalonia</CFBundleDisplayName>
     <CFBundleShortVersionString>DemoAvalonia</CFBundleShortVersionString>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="System.Reactive" />
+    <PackageReference Include="ReactViewControl-Avalonia$(PackageSuffix)" />
+    <PackageReference Include="ViewGenerator">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ViewGeneratorCore">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="WebViewControl-Avalonia$(PackageSuffix)" />
   </ItemGroup>
 
   <ItemGroup>

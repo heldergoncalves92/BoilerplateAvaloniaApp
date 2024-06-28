@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+
+        <Configurations>Debug;Release</Configurations>
+
+        <Platforms>AnyCPU;ARM64</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="NUnit"/>
+        <PackageReference Include="NUnit3TestAdapter"/>
+        <PackageReference Include="NUnit.Analyzers"/>
+        <PackageReference Include="coverlet.collector"/>
+        <PackageReference Include="Avalonia" />
+        <PackageReference Include="Avalonia.Headless" />
+        <PackageReference Include="Avalonia.Headless.NUnit" />
+        <PackageReference Include="Avalonia.Themes.Fluent" />
+        <PackageReference Include="System.Reactive" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <AvaloniaResource Include="TestApplication.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CefGlue.Demo.Avalonia\CefGlue.Demo.Avalonia.csproj" />
+    </ItemGroup>
+
+</Project>
