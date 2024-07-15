@@ -6,8 +6,8 @@ using ServiceStudio.WebViewImplementation.Framework;
 namespace ServiceStudio.WebViewImplementation {
     partial class AggregatorWindow : IAggregatorWindowView {
         ITopLevelView IAggregatorWindowView.SelectedView {
-            get => Dispatcher.UIThread.ExecuteInUIThread(() => (ITopLevelView)tabs.SelectedContent);
-            set => Dispatcher.UIThread.AsyncExecuteInUIThread(() => tabs.SelectedIndex = GetTabIndex(value));
+            get => Dispatcher.UIThread.ExecuteInUIThread(() => (ITopLevelView)null);
+            set => Dispatcher.UIThread.AsyncExecuteInUIThread(() => { });
         }
 
         private string caption = string.Empty;

@@ -8,17 +8,20 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using ServiceStudio.View;
 using ServiceStudio.WebViewImplementation.Framework.Tooltip;
 
 namespace ServiceStudio.WebViewImplementation {
     internal partial class AggregatorWindow : Window {
-        private readonly TabControl tabs;
+        
         private Action<ITopLevelView> selectedAggregatorChanged;
 
         public AggregatorWindow() {
             AvaloniaXamlLoader.Load(this);
-            tabs = this.FindControl<TabControl>("tabs");
+            ExtendClientAreaToDecorationsHint = true;
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
+
         }
 
         public static readonly StyledProperty<Thickness> TitleBarMarginProperty =
@@ -29,7 +32,7 @@ namespace ServiceStudio.WebViewImplementation {
             private set => SetValue(TitleBarMarginProperty, value);
         }
 
-        private IEnumerable<TabItem> TabItems => tabs.Items.Cast<TabItem>();
+        private IEnumerable<TabItem> TabItems => Enumerable.Empty<TabItem>();
 
         //TODO HYBRID Finish
         private void OnSelectedTabChanged(object sender, SelectionChangedEventArgs e) {
@@ -39,9 +42,7 @@ namespace ServiceStudio.WebViewImplementation {
         }
 
         private void SelectTab(TabItem tabItem) {
-            if (tabItem.Content != null) {
-                tabs.SelectedIndex = GetTabIndex(tabItem.Content as ITopLevelView);
-            }
+            
         }
 
         private void ShowTooltipFor(TabItem tabItem, TabHeaderInfo tabHeaderInfo, PointerEventArgs e) {
@@ -89,24 +90,10 @@ namespace ServiceStudio.WebViewImplementation {
             tab.PointerPressed += OnPointerPressed;
             AddDragDropHandlers(tab);
 
-            var pos = ((IList)tabs.Items).Add(tab);
         }
 
         private void RemoveTab(IAggregatorView aggregatorView) {
-            var index = GetTabIndex(aggregatorView);
-
-            if (tabs.SelectedIndex == index) {
-                tabs.SelectedIndex = index - 1;
-                tabItemSelectedForDragDrop = null;
-            }
             
-            var currentTab = (TabItem)tabs.Items.ElementAt(index);
-            currentTab.Content = null;
-            currentTab.DataContext = null;
-            currentTab.Header = null;
-            
-            tabs.Items.RemoveAt(index);
-            TooltipServiceProvider.HideTooltip();
         }
 
         private void AddDragDropHandlers(TabItem tab) {
@@ -115,7 +102,6 @@ namespace ServiceStudio.WebViewImplementation {
         }
 
         private void OnDragEnter(object sender, Avalonia.Input.DragEventArgs e) {
-            tabs.SelectedIndex = GetTabIndex(((TabItem)sender).Content as ITopLevelView);
         }
 
         protected override void OnOpened(EventArgs e) {
