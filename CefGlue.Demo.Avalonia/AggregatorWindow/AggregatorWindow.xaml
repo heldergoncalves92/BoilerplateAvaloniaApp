@@ -10,7 +10,7 @@
     ExtendClientAreaChromeHints="NoChrome"
     ExtendClientAreaTitleBarHeightHint="-1"
     SystemDecorations="None"
-    CanResize="True"
+    CanResize="False"
     Padding="0"
     >
     
