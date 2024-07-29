@@ -12,13 +12,17 @@ using ServiceStudio.View;
 using ServiceStudio.WebViewImplementation.Framework.Tooltip;
 
 namespace ServiceStudio.WebViewImplementation {
-    internal partial class AggregatorWindow : Window {
+    public partial class AggregatorWindow : Window {
         private readonly TabControl tabs;
         private Action<ITopLevelView> selectedAggregatorChanged;
 
         public AggregatorWindow() {
             AvaloniaXamlLoader.Load(this);
             tabs = this.FindControl<TabControl>("tabs");
+            tabs.PointerPressed += (sender, args) =>
+            {
+                
+            };
         }
 
         public static readonly StyledProperty<Thickness> TitleBarMarginProperty =
@@ -29,7 +33,7 @@ namespace ServiceStudio.WebViewImplementation {
             private set => SetValue(TitleBarMarginProperty, value);
         }
 
-        private IEnumerable<TabItem> TabItems => tabs.Items.Cast<TabItem>();
+        public IEnumerable<TabItem> TabItems => tabs.Items.Cast<TabItem>();
 
         //TODO HYBRID Finish
         private void OnSelectedTabChanged(object sender, SelectionChangedEventArgs e) {

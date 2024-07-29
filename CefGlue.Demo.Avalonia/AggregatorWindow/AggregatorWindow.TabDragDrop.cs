@@ -199,7 +199,11 @@ namespace ServiceStudio.WebViewImplementation
         }
 
         private void HandleTabRightMouseClick(object sender)
-        { }
+        {
+            var tabItem = sender as TabItem;
+            var menu = new ContextMenu();
+            menu.Open(tabItem);
+        }
 
         private void HandleTabMiddleMouseClick(object sender)
         { }

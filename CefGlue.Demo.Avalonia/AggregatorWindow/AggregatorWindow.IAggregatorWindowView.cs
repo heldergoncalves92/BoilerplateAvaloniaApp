@@ -1,4 +1,5 @@
 ﻿using System;
+using Avalonia.Controls;
 using Avalonia.Threading;
 using ServiceStudio.View;
 using ServiceStudio.WebViewImplementation.Framework;
@@ -6,7 +7,7 @@ using ServiceStudio.WebViewImplementation.Framework;
 namespace ServiceStudio.WebViewImplementation {
     partial class AggregatorWindow : IAggregatorWindowView {
         ITopLevelView IAggregatorWindowView.SelectedView {
-            get => Dispatcher.UIThread.ExecuteInUIThread(() => (ITopLevelView)tabs.SelectedContent);
+            get => Dispatcher.UIThread.ExecuteInUIThread(() => (ITopLevelView)((TabItem)tabs.SelectedItem).Content);
             set => Dispatcher.UIThread.AsyncExecuteInUIThread(() => tabs.SelectedIndex = GetTabIndex(value));
         }
 
