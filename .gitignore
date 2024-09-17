@@ -1,5 +1,7 @@
 
 .idea/
 
-CefGlue.Demo.Avalonia/bin/
-CefGlue.Demo.Avalonia/obj/
+bin/
+obj/
+bin/
+obj/
