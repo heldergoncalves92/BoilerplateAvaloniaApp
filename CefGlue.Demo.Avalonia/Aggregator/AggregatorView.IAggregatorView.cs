@@ -1,4 +1,3 @@
-using Avalonia.Controls;
 using Avalonia.Threading;
 using ServiceStudio.View;
 using ServiceStudio.WebViewImplementation.Framework;
@@ -13,8 +12,7 @@ namespace ServiceStudio.WebViewImplementation {
       
 
         void IView.Activate() { }
-        public void Dispose()
-        {
+        public void Dispose() {
             throw new System.NotImplementedException();
         }
     }

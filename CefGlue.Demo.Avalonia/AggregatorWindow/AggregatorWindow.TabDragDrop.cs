@@ -9,11 +9,8 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using ServiceStudio.Presenter;
 using ServiceStudio.View;
-using Image = Avalonia.Controls.Image;
 
 namespace ServiceStudio.WebViewImplementation
 {

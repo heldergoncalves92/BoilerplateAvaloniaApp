@@ -19,6 +19,7 @@ namespace ServiceStudio.WebViewImplementation {
         public AggregatorWindow() {
             AvaloniaXamlLoader.Load(this);
             tabs = this.FindControl<TabControl>("tabs");
+            this.AttachDevTools();
         }
 
         public static readonly StyledProperty<Thickness> TitleBarMarginProperty =
@@ -36,12 +37,6 @@ namespace ServiceStudio.WebViewImplementation {
             var tabItem = e.AddedItems.OfType<TabItem>().FirstOrDefault()?.Content as ITopLevelView;
 
             selectedAggregatorChanged?.Invoke(tabItem);
-        }
-
-        private void SelectTab(TabItem tabItem) {
-            if (tabItem.Content != null) {
-                tabs.SelectedIndex = GetTabIndex(tabItem.Content as ITopLevelView);
-            }
         }
 
         private void ShowTooltipFor(TabItem tabItem, TabHeaderInfo tabHeaderInfo, PointerEventArgs e) {
