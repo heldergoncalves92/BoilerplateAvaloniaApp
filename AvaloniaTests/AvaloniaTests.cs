@@ -13,13 +13,18 @@ public class AvaloniaTests {
     }
 
     [AvaloniaTest]
-    public void Test3() {
+    public void TestFineOn_Avalonia_v11_0_13() {
         // Arrange
         var topLevelViewMock = new MockUserControl();
         var dialogWindow = new Window();
-        var args = new VisualTreeAttachmentEventArgs(dialogWindow, dialogWindow);
 
-        // Act
-        topLevelViewMock.RaiseAttachedFromVisualTree(args);
+        try {
+            var args = new VisualTreeAttachmentEventArgs(dialogWindow, dialogWindow);
+
+            // Act
+            topLevelViewMock.RaiseAttachedFromVisualTree(args);
+        } finally {
+            dialogWindow.Close();
+        }
     }
 }
