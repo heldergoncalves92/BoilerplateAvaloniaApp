@@ -11,5 +11,10 @@
         <PackageReference Include="NUnit" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="Avalonia.Desktop" />
+        <PackageReference Include="Avalonia.Headless.NUnit" />        
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CefGlue.Demo.Avalonia\CefGlue.Demo.Avalonia.csproj" />
     </ItemGroup>
 </Project>
