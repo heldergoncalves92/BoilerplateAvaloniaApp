@@ -19,6 +19,8 @@ namespace ServiceStudio.WebViewImplementation {
         public AggregatorWindow() {
             AvaloniaXamlLoader.Load(this);
             tabs = this.FindControl<TabControl>("tabs");
+            
+            PositionChanged += OnWindowPositionChanged;
             this.AttachDevTools();
         }
 
@@ -140,5 +142,11 @@ namespace ServiceStudio.WebViewImplementation {
             menuItem.Menu = menu;
             nativeMenu.Add(menuItem);
        }
+        
+        private void OnWindowPositionChanged(object sender, PixelPointEventArgs e) {
+            // TODO - RICT-3212 Remove this event when Avalonia fixes this rendering issue
+            // https://github.com/AvaloniaUI/Avalonia/issues/4107
+            this.InvalidateMeasure();
+        }
     }
 }
