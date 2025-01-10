@@ -33,6 +33,10 @@
     <AvaloniaResource Include="AggregatorWindow\AggregatorWindow.xaml" />
     <None Remove="Aggregator\AggregatorView.xaml" />
     <AvaloniaResource Include="Aggregator\AggregatorView.xaml" />
+    <AvaloniaResource Include="DriftChats\DriftChat.xaml" />
+    <EmbeddedResource Include="DriftChats\Images\Light\ChatClose.png" />
+    <EmbeddedResource Include="DriftChats\Images\Light\ChatIcon.png" />
+    <EmbeddedResource Include="DriftChats\Images\Light\ChatMinimize.png" />
   </ItemGroup>
 
 

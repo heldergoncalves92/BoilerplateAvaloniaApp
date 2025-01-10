@@ -1,0 +1,185 @@
+﻿<Window
+    xmlns="https://github.com/avaloniaui"
+
+    xmlns:controls="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="ServiceStudio.WebViewImplementation.DriftChats.DriftChat"
+    xmlns:templates="clr-namespace:Avalonia.Markup.Xaml.Templates;assembly=Avalonia.Markup.Xaml"
+    Background="Transparent"
+    TransparencyLevelHint="Transparent"
+    ExtendClientAreaToDecorationsHint="False"
+    ExtendClientAreaChromeHints="NoChrome"
+    ExtendClientAreaTitleBarHeightHint="-1"
+    SystemDecorations="None"
+    CanResize="False"
+    Padding="0"
+    ShowInTaskbar="False"
+    >
+
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style Selector="Border">
+            <Setter Property="ClipToBounds" Value="True" />
+        </Style>
+
+        <Style Selector="StackPanel.ChatEngagementContainer">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+        <Style Selector="Border.ChatEngagementBorder">
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundColor}" />
+            <Setter Property="BoxShadow" Value="{DynamicResource PopupBoxShadow}" />
+            <Setter Property="BorderThickness" Value="18" />
+            <Setter Property="CornerRadius" Value="4" />
+            <!-- Margin to push up Engagement dialog so it aligns bottom with chat icon bottom -->
+            <Setter Property="Margin" Value="0 -5 0 5" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+
+        <Style Selector="Panel.ChatEngagement">
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundColor}" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Canvas.ChatEngagementArrow">
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <!-- Bottom margin = (chat icon border height - chat icon height) - 1/2 arrow height -->
+            <Setter Property="Margin" Value="-10 0 0 34" />
+        </Style>
+
+        <Style Selector="Canvas.ChatEngagementArrow Polygon">
+            <Setter Property="Points" Value="0,0 0,20 8,10" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="Fill" Value="{DynamicResource ThemeBackgroundColor}" />
+        </Style>
+
+        <Style Selector="Panel#chatIconContainer">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <Style Selector="Panel#chatIconContainer Border.closeBorder">
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="ZIndex" Value="1" />
+        </Style>
+        <Style Selector="Panel#chatIconContainer Border.closeBorder">
+            <Setter Property="Background" Value="{DynamicResource PanelLevel2Color}" />
+        </Style>
+        <Style Selector=":light Panel#chatIconContainer Border.closeBorder Button">
+            <Setter Property="Content">
+                <templates:Template>
+                    <Image Source="resm:CefGlue.Demo.Avalonia.DriftChats.Images.Light.ChatClose.png" />
+                </templates:Template>
+            </Setter>
+        </Style>
+        <Style Selector=":light Panel#chatIconContainer Border.closeBorder Button:focus, :light Panel#chatIconContainer Border.closeBorder Button:pointerover">
+            <Setter Property="Background" Value="{DynamicResource PopupHighlightButtonHoverBrush}" />
+        </Style>
+        <Style Selector="Panel#chatIconContainer Border.closeBorder Button Image">
+            <Setter Property="Width" Value="12" />
+            <Setter Property="Height" Value="18" />
+        </Style>
+        <Style Selector="Panel#chatIconContainer Image">
+            <Setter Property="Width" Value="27" />
+            <Setter Property="Height" Value="25.5" />
+        </Style>
+
+        <Style Selector="Panel#chatIconContainer Border.mainChatIconBorder">
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+            <Setter Property="Width" Value="76" />
+            <Setter Property="Height" Value="76" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="BorderThickness" Value="18" />
+            <Setter Property="Padding" Value="-7" />
+            <Setter Property="BoxShadow" Value="{DynamicResource PopupBoxShadow}" />
+        </Style>
+        <Style Selector=":light Panel#chatIconContainer Image">
+            <Setter Property="Source" Value="resm:CefGlue.Demo.Avalonia.DriftChats.Images.Light.ChatIcon.png" />
+        </Style>
+
+        <Style Selector="Border.chatContainerBorder">
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="BorderThickness" Value="18" />
+            <Setter Property="BoxShadow" Value="{DynamicResource PopupBoxShadow}" />
+            <Setter Property="Margin" Value="14,12,14,18" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="Panel#chatContainer">
+        </Style>
+        <Style Selector="Panel#chatContainer Panel.titleBar">
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <Style Selector="Panel#chatContainer Panel.titleBar">
+            <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+        </Style>
+        <Style Selector=":light Panel#chatContainer Panel.titleBar Image.minimize">
+            <Setter Property="Source" Value="resm:CefGlue.Demo.Avalonia.DriftChats.Images.Light.ChatMinimize.png" />
+        </Style>
+        <Style Selector=":light Panel#chatContainer Panel.titleBar Image.close">
+            <Setter Property="Source" Value="resm:CefGlue.Demo.Avalonia.DriftChats.Images.Light.ChatClose.png" />
+        </Style>
+        <Style Selector="Panel#chatContainer StackPanel">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+        <Style Selector="Panel#chatContainer StackPanel > Button">
+            <Setter Property="Width" Value="28" />
+        </Style>
+        <Style Selector="Panel#chatContainer StackPanel > Button Image">
+            <Setter Property="Width" Value="16" />
+        </Style>
+    </Window.Styles>
+
+    <Panel Name="mainContainer" Classes="mainContainer">
+        <StackPanel Name="ChatEngagementContainer" Classes="ChatEngagementContainer" Orientation="Horizontal">
+            <Border Classes="ChatEngagementBorder">
+                <Panel Classes="ChatEngagement">
+                    <controls:ContentControl Name="ReactContainer"></controls:ContentControl>
+                </Panel>
+            </Border>
+            <Canvas Classes="ChatEngagementArrow">
+                <Polygon />
+            </Canvas>
+        </StackPanel>
+        <Panel Name="chatIconContainer">
+            <Border Classes="closeBorder">
+                <Button Click="OnChatIconCloseButtonClick" />
+            </Border>
+            <Border Classes="mainChatIconBorder">
+                <Button Click="OnMainChatIconClick">
+                    <Image />
+                </Button>
+            </Border>
+        </Panel>
+        <Border Name ="chatContainerBorder" Classes="chatContainerBorder">
+            <Panel Name="chatContainer">
+                <Panel Classes="titleBar">
+                    <controls:StackPanel Orientation="Horizontal">
+                        <Button Name="mainChatIconButton"
+                                Click="OnMinimizeButtonClick">
+                            <Image Classes="minimize" />
+                        </Button>
+                        <Button Click="OnChatCloseButtonClick">
+                            <Image Classes="close" />
+                        </Button>
+                    </controls:StackPanel>
+                </Panel>
+            </Panel>
+        </Border>
+    </Panel>
+
+</Window>
