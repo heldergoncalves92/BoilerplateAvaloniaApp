@@ -12,7 +12,7 @@ using ServiceStudio.View;
 using ServiceStudio.WebViewImplementation.Framework.Tooltip;
 
 namespace ServiceStudio.WebViewImplementation {
-    internal partial class AggregatorWindow : Window {
+    internal partial class AggregatorWindow : BaseWindow {
         private readonly TabControl tabs;
         private Action<ITopLevelView> selectedAggregatorChanged;
 
@@ -20,6 +20,7 @@ namespace ServiceStudio.WebViewImplementation {
             AvaloniaXamlLoader.Load(this);
             tabs = this.FindControl<TabControl>("tabs");
             this.AttachDevTools();
+            WindowState = WindowState.Maximized;
         }
 
         public static readonly StyledProperty<Thickness> TitleBarMarginProperty =
@@ -27,16 +28,43 @@ namespace ServiceStudio.WebViewImplementation {
 
         public Thickness TitleBarMargin {
             get => GetValue(TitleBarMarginProperty);
-            private set => SetValue(TitleBarMarginProperty, value);
+            private set {
+                SetValue(TitleBarMarginProperty, value);
+                SetValue(TabControlMarginProperty, new Thickness(value.Left + 101 + 14, 0, 0, 0));
+            }
+        }
+
+        public static readonly StyledProperty<Thickness> TabControlMarginProperty =
+            AvaloniaProperty.Register<AggregatorWindow, Thickness>(nameof(TabControlMargin), defaultValue: new Thickness(0), inherits: true);
+
+        public Thickness TabControlMargin {
+            get => GetValue(TabControlMarginProperty);
+            private set => SetValue(TabControlMarginProperty, value);
         }
 
         private IEnumerable<TabItem> TabItems => tabs.Items.Cast<TabItem>();
 
-        //TODO HYBRID Finish
         private void OnSelectedTabChanged(object sender, SelectionChangedEventArgs e) {
             var tabItem = e.AddedItems.OfType<TabItem>().FirstOrDefault()?.Content as ITopLevelView;
 
             selectedAggregatorChanged?.Invoke(tabItem);
+        }
+
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
+            base.OnPropertyChanged(change);
+
+            if (change.Property == WindowStateProperty) {
+                var state = (WindowState)change.NewValue;
+                ApplyTitleBarMargin(state);
+                ExtendClientAreaTitleBarHeightHint = 34;
+            }
+        }
+
+        private void ApplyTitleBarMargin(WindowState state) {
+            TitleBarMargin = state switch {
+                WindowState.FullScreen => new Thickness(16, 8, 0, 0),
+                _ => new Thickness(72 + 16, 8, 0, 0),
+            };
         }
 
         private void ShowTooltipFor(TabItem tabItem, TabHeaderInfo tabHeaderInfo, PointerEventArgs e) {

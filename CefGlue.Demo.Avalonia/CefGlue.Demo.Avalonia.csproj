@@ -33,6 +33,12 @@
     <AvaloniaResource Include="AggregatorWindow\AggregatorWindow.xaml" />
     <None Remove="Aggregator\AggregatorView.xaml" />
     <AvaloniaResource Include="Aggregator\AggregatorView.xaml" />
+    <None Remove="BaseWindow.xaml" />
+    <AvaloniaResource Include="BaseWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="AggregatorWindow\Images\OutSystemsBrandLight.png" />
   </ItemGroup>
 
 

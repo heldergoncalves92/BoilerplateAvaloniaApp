@@ -1,12 +1,12 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
+﻿<local:BaseWindow xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="ServiceStudio.WebViewImplementation.AggregatorWindow"
     xmlns:local="clr-namespace:ServiceStudio.WebViewImplementation"
+    x:Class="ServiceStudio.WebViewImplementation.AggregatorWindow"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     MinWidth="1080"
     MinHeight="600"
     Title="ODC Studio">
-    
+
     <NativeMenu.Menu>
         <NativeMenu />
     </NativeMenu.Menu>
@@ -16,10 +16,10 @@
             <DataTemplate DataType="{x:Type local:TabHeaderInfo}">
                 <DockPanel Height="16">
                     <Image Source="{Binding ImageSource}"
-                        IsVisible="{Binding ImageVisibility}"
-                        Width="16"
-                        DockPanel.Dock="Left"
-                        Margin="8 0 0 0"/>
+                           IsVisible="{Binding ImageVisibility}"
+                           Width="16"
+                           DockPanel.Dock="Left">
+                    </Image>
                     <Button IsVisible="{Binding AllowClose}"
                         IsEnabled="{Binding IsEnabled}"
                         Width="16"
@@ -29,8 +29,7 @@
                         Click="OnTabCloseButtonClick"
                         BorderThickness="0"
                         Background="Transparent"
-                        DockPanel.Dock="Right"
-                        Margin="0 0 8 0">
+                        DockPanel.Dock="Right">
                         <Button.Styles>
                             <Style Selector="Button:pointerover /template/ ContentPresenter">
                                 <Setter Property="Background" Value="Transparent"/>
@@ -57,9 +56,7 @@
                             Stretch="Uniform" />
                     </Button>
                     <TextBlock Text="{Binding Caption}"
-                        Margin="8 0 8 0"
                         FontSize="12"
-                        TextTrimming="CharacterEllipsis"
                         VerticalAlignment="Center">
                         <TextBlock.Styles>
                             <Style Selector="TextBlock">
@@ -84,8 +81,7 @@
         </Grid.DataTemplates>
 
         <Grid.Resources>
-            <System:Double x:Key="toggleButtonWidth">24.0</System:Double>
-            <System:Double x:Key="toggleButtonHeight">24.0</System:Double>
+            <System:Double x:Key="ToggleButtonHeight">24.0</System:Double>
         </Grid.Resources>
 
         <!-- Adding a NativeMenuBar control so that we can test native menus while developing them in Windows.
@@ -94,60 +90,69 @@
         the containing DockPanel, otherwise the menu items won't receive the click events. -->
         <NativeMenuBar />
 
+        <Image
+            ZIndex="-1"
+            RenderOptions.BitmapInterpolationMode="HighQuality"
+            Height="16"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            MinWidth="101"
+            Margin="{Binding TitleBarMargin, RelativeSource={RelativeSource AncestorType=local:AggregatorWindow}}"
+            IsHitTestVisible="False"
+            Source="resm:CefGlue.Demo.Avalonia.AggregatorWindow.Images.OutSystemsBrandLight.png">
+        </Image>
+
+        <ToggleButton
+            Name="Toggle"
+            ZIndex="-1"
+            MinWidth="24"
+            Height="{StaticResource ToggleButtonHeight}"
+            BorderThickness="0"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left">
+            <Path Fill="{Binding (ToggleButton.Foreground),
+                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}"
+                Data="M8,12L4,6L12, 6Z"
+                Width="16"
+                Height="16"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+            <ToggleButton.Styles>
+                <Style Selector="ToggleButton">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryIconColor}"/>
+                </Style>
+                <Style Selector="ToggleButton /template/ ContentPresenter">
+                    <Setter Property="CornerRadius" Value="4"/>
+                </Style>
+                <Style Selector="ToggleButton:pointerover">
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryIconHoverColor}"/>
+                    <Setter Property="Background" Value="{DynamicResource HighlightHoverBrush}"/>
+                </Style>
+                <Style Selector="ToggleButton:pressed /template/ ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource HighlightBrush}"/>
+                </Style>
+                <Style Selector="ToggleButton:checked /template/ ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource HighlightBrush}"/>
+                </Style>
+                <Style Selector="ToggleButton:pressed">
+                    <Setter Property="Foreground" Value="{DynamicResource PanelLevel1Color}"/>
+                </Style>
+                <Style Selector="ToggleButton:checked">
+                    <Setter Property="Foreground" Value="{DynamicResource PanelLevel1Color}"/>
+                </Style>
+            </ToggleButton.Styles>
+        </ToggleButton>
+
         <TabControl Name="tabs"
             SelectionChanged="OnSelectedTabChanged"
-            
+
             Padding="0">
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <local:TabItemsControl RowDefinitions="Auto, Auto"
-                                           TabItemsIndex="1">
-                        <DockPanel Grid.RowSpan="2"
-                            HorizontalAlignment="Stretch"
-                            Margin="{Binding TitleBarMargin, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                            
-                            <ToggleButton Width="{StaticResource toggleButtonWidth}"
-                                Height="{StaticResource toggleButtonHeight}"
-                                Margin="4 0 16 0"
-                                BorderThickness="0"
-                                DockPanel.Dock="Left"
-                                HorizontalAlignment="Left">
-                                <Path Fill="{Binding (ToggleButton.Foreground),
-                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}"
-                                    Data="M8,12L4,6L12, 6Z"
-                                    Width="16"
-                                    Height="16"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"/>
-                                <ToggleButton.Styles>
-                                    <Style Selector="ToggleButton">
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryIconColor}"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton /template/ ContentPresenter">
-                                        <Setter Property="CornerRadius" Value="4"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:pointerover">
-                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryIconHoverColor}"/>
-                                        <Setter Property="Background" Value="{DynamicResource HighlightHoverBrush}"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:pressed /template/ ContentPresenter">
-                                        <Setter Property="Background" Value="{DynamicResource HighlightBrush}"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:checked /template/ ContentPresenter">
-                                        <Setter Property="Background" Value="{DynamicResource HighlightBrush}"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:pressed">
-                                        <Setter Property="Foreground" Value="{DynamicResource PanelLevel1Color}"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:checked">
-                                        <Setter Property="Foreground" Value="{DynamicResource PanelLevel1Color}"/>
-                                    </Style>
-                                </ToggleButton.Styles>
-                            </ToggleButton>
-                        </DockPanel>
-                        <Border BorderBrush="{DynamicResource ThemeControlMidBrush}" BorderThickness="0 0 0 1" Grid.Row="1" ZIndex="-1"/>
-                    </local:TabItemsControl>
+                    <local:TabItemsControl
+                        Margin="{Binding TabControlMargin, RelativeSource={RelativeSource AncestorType=local:AggregatorWindow}}"
+                    />
                 </ItemsPanelTemplate>
             </TabControl.ItemsPanel>
             <TabControl.Styles>
@@ -182,4 +187,4 @@
             </TabControl.Styles>
         </TabControl>
     </Grid>
-</Window>
+</local:BaseWindow>

@@ -1,0 +1,57 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ServiceStudio.WebViewImplementation.BaseWindow"
+        ExtendClientAreaToDecorationsHint="True"
+        Padding="2"> <!--We cannot decrease Padding otherwise it will be almost impossible to resize windows-->
+
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background" Value="{DynamicResource PanelLevel1Brush}"/>
+        </Style>
+
+        <Style Selector="Window:win10 > Panel > Border:not(#PART_TransparencyFallback)">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="rgba(130, 130, 130, 0.3)"/>
+        </Style>
+
+        <Style Selector="Window:win:maximized /template/ ContentPresenter#PART_ContentPresenter">
+            <!-- We must not need this margin, as the title bar has smaller height when is maximized.
+                 Moreover, this is wrong when the window is maximized and does not has titlebar
+            -->
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Button#PART_FullScreenButton">
+            <Setter Property="IsVisible" Value="False"/>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Button#PART_MinimizeButton">
+            <Setter Property="IsVisible" Value="{Binding AllowMinimize, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Button#PART_RestoreButton">
+            <Setter Property="IsVisible" Value="{Binding AllowRestoreOrMaximize, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Button#PART_CloseButton">
+            <Setter Property="IsVisible" Value="{Binding ShowClose, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Setter Property="IsEnabled" Value="{Binding EnableClose, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource CloseCaptionButtonHoverBackgroundColor}"/>
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="BorderBrush" Value="{DynamicResource CloseCaptionButtonHoverBackgroundColor}"/>
+            </Style>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Button#PART_FullScreenButton,
+               CaptionButtons /template/ Button#PART_MinimizeButton,
+               CaptionButtons /template/ Button#PART_RestoreButton">
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="{DynamicResource DefaultCaptionButtonsHoverBackgroundColor}"/>
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="BorderBrush" Value="{DynamicResource DefaultCaptionButtonsHoverBackgroundColor}"/>
+            </Style>
+        </Style>
+        <Style Selector=":osx CaptionButtons">
+            <Setter Property="IsVisible" Value="False"/>
+        </Style>
+
+    </Window.Styles>
+</Window>
