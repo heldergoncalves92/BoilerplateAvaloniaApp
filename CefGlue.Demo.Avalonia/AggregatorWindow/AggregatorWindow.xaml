@@ -102,6 +102,14 @@
             Source="resm:CefGlue.Demo.Avalonia.AggregatorWindow.Images.OutSystemsBrandLight.png">
         </Image>
 
+        <Border
+            ZIndex="-1"
+            VerticalAlignment="Top"
+            BorderBrush="{DynamicResource ThemeControlMidBrush}"
+            BorderThickness="0 0 0 1"
+            Margin="0 31 0 0"
+        />
+
         <ToggleButton
             Name="Toggle"
             ZIndex="-1"
@@ -146,8 +154,12 @@
 
         <TabControl Name="tabs"
             SelectionChanged="OnSelectedTabChanged"
-
             Padding="0">
+            <TabControl.Styles>
+                <Style Selector="TabControl">
+                    <Setter Property="Background" Value="{x:Null}"/>
+                </Style>
+            </TabControl.Styles>
             <TabControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <local:TabItemsControl
@@ -157,32 +169,10 @@
             </TabControl.ItemsPanel>
             <TabControl.Styles>
                 <Style Selector="TabItem">
-                    <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Height" Value="{Binding WindowDecorationMargin.Top}"/>
+                    <Setter Property="Height" Value="{Binding (local:AggregatorWindow).WindowDecorationMargin.Top}"/>
                     <Setter Property="BorderThickness" Value="0 0 0 1" />
                     <Setter Property="Padding" Value="8,8,8,7" />
-                    <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlMidBrush}" />
-                </Style>
-                <Style Selector="TabItem:pointerover">
-                    <Setter Property="Background" Value="{DynamicResource PanelLevel3Color}"/>
-                </Style>
-                <Style Selector="TabItem:pressed">
-                    <Setter Property="Background" Value="{DynamicResource PanelLevel3Color}"/>
-                </Style>
-                <Style Selector="TabItem:selected">
-                    <Setter Property="Background" Value="{DynamicResource PanelLevel2Color}"/>
-                    <Setter Property="BorderThickness" Value="1 1 1 0" />
-                    <Setter Property="Padding" Value="7,7,7,8" />
-                    <Setter Property="BorderBrush" Value="{DynamicResource ThemeControlMidBrush}" />
-                </Style>
-                <Style Selector="TabItem:selected:hide">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="Foreground" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="0 0 0 1" />
-                </Style>
-                <Style Selector="Window:hotfix TabItem:disabled">
-                    <Setter Property="Opacity" Value="{DynamicResource HotfixDisabledTabsOpacity}"/>
                 </Style>
             </TabControl.Styles>
         </TabControl>

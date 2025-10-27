@@ -50,13 +50,15 @@ namespace ServiceStudio.WebViewImplementation {
             selectedAggregatorChanged?.Invoke(tabItem);
         }
 
+        private const int TitleBarHeight = 34;
+
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
             base.OnPropertyChanged(change);
 
             if (change.Property == WindowStateProperty) {
                 var state = (WindowState)change.NewValue;
                 ApplyTitleBarMargin(state);
-                ExtendClientAreaTitleBarHeightHint = 34;
+                ExtendClientAreaTitleBarHeightHint = TitleBarHeight;
             }
         }
 
@@ -140,33 +142,5 @@ namespace ServiceStudio.WebViewImplementation {
         private void OnDragEnter(object sender, Avalonia.Input.DragEventArgs e) {
             tabs.SelectedIndex = GetTabIndex(((TabItem)sender).Content as ITopLevelView);
         }
-
-        protected override void OnOpened(EventArgs e) {
-            var nativeMenu = NativeMenu.GetMenu(this);
-            var menuItem = new NativeMenuItem("AmazingNativeMenu");
-            var menu = new NativeMenu();
-            menu.NeedsUpdate += (_, __) => Console.WriteLine("Menu Needs To Update");
-            
-            var item2 = new NativeMenuItem();
-            item2.Click += (a, b) => {
-                Console.WriteLine("OnMenuItemClick Delete");
-            };
-            item2.Header = "Delete Amazing Action";
-            item2.IsEnabled = true;
-            menu.Items.Add(item2);
-
-            var item = new NativeMenuItem();
-            item.Click += (a, b) => {
-                Console.WriteLine("OnMenuItemClick F4");
-                item2.Gesture = item2.Gesture == null ? KeyGesture.Parse("Delete") : null;
-            };
-            item.Header = "F4 Amazing Action";
-            item.IsEnabled = true;
-            item.Gesture = KeyGesture.Parse("F4");
-            menu.Items.Add(item);
-
-            menuItem.Menu = menu;
-            nativeMenu.Add(menuItem);
-       }
     }
 }

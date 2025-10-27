@@ -41,7 +41,7 @@ namespace ServiceStudio.WebViewImplementation {
                 };
                 var view = new AggregatorView(tabHeaderInfo);
 
-                // AddTab(tabHeaderInfo, view);
+                AddTab(tabHeaderInfo, view);
                 return view;
             });
         }
@@ -49,7 +49,7 @@ namespace ServiceStudio.WebViewImplementation {
         void IAggregatorWindowView.InsertAggregator(IAggregatorView aggregatorView, int? index) {
             Dispatcher.UIThread.ExecuteInUIThread(() => {
                 var concreteAggregatorView = (AggregatorView)aggregatorView;
-                // AddTab(concreteAggregatorView.TabHeader, concreteAggregatorView);
+                AddTab(concreteAggregatorView.TabHeader, concreteAggregatorView);
             });
 
             // TODO RICT-2156
