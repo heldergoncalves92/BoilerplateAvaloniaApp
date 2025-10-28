@@ -102,29 +102,12 @@ namespace ServiceStudio.WebViewImplementation {
 
         private bool ShouldTrackWindowState => windowState != null && WindowState == WindowState.Normal;
 
-        protected override void OnClosing(WindowClosingEventArgs e) {
-            base.OnClosing(e);
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-                // there is a bug on windows and the app loses focus
-                // when another app was activated previously, and so we have to activate the owner
-                if (!e.Cancel && IsActive) {
-                    Owner?.Activate();
-                }
-            }
-        }
-
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
             base.OnPropertyChanged(change);
 
             if (change.Property == WindowStateProperty) {
                 var state = (WindowState)change.NewValue;
                 PseudoClasses.Set(":maximized", state == WindowState.Maximized);
-
-                // if (ShouldTrackWindowState) {
-                //     windowState.SuspendNotificationsIn(() => {
-                //         windowState.IsMaximized = state == WindowState.Maximized;
-                //     });
-                // }
             }
         }
 

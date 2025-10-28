@@ -90,18 +90,6 @@
         the containing DockPanel, otherwise the menu items won't receive the click events. -->
         <NativeMenuBar />
 
-        <Image
-            ZIndex="-1"
-            RenderOptions.BitmapInterpolationMode="HighQuality"
-            Height="16"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            MinWidth="101"
-            Margin="{Binding TitleBarMargin, RelativeSource={RelativeSource AncestorType=local:AggregatorWindow}}"
-            IsHitTestVisible="False"
-            Source="resm:CefGlue.Demo.Avalonia.AggregatorWindow.Images.OutSystemsBrandLight.png">
-        </Image>
-
         <Border
             ZIndex="-1"
             VerticalAlignment="Top"

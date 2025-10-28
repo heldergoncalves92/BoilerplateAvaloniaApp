@@ -37,9 +37,5 @@
     <AvaloniaResource Include="BaseWindow.xaml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="AggregatorWindow\Images\OutSystemsBrandLight.png" />
-  </ItemGroup>
-
 
 </Project>
